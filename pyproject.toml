@@ -6,7 +6,8 @@
 line-length = 110
 target-version = "py311"
 exclude = [
-    "doc"
+    "doc",
+    "python/**/version.py",
 ]
 
 [tool.ruff.lint]
