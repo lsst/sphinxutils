@@ -1,0 +1,100 @@
+name: Python CI
+
+env:
+  PYTHON_VERSION: "3.12"  # Default Python version for non-matrix jobs
+
+"on":
+  merge_group: {}
+  pull_request: {}
+  push:
+    branches-ignore:
+      # These should always correspond to pull requests, so ignore them for
+      # the push trigger and let them be triggered by the pull_request
+      # trigger, avoiding running the workflow twice.  This is a minor
+      # optimization so there's no need to ensure this is comprehensive.
+      - "dependabot/**"
+      - "renovate/**"
+      - "tickets/**"
+      - "u/**"
+  release:
+    types: [published]
+
+jobs:
+
+  lint:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python:
+          - "3.11"
+          - "3.12"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for versioning
+
+      - name: Run tox
+        uses: lsst-sqre/run-tox@v1
+        with:
+          python-version: ${{ matrix.python }}
+          tox-envs: "py,typing"
+          tox-plugins: "tox-uv"
+
+  test-packaging:
+
+    name: Test packaging
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for versioning
+
+      - name: Build and publish
+        uses: lsst-sqre/build-and-publish-to-pypi@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          upload: false
+
+  # The lsst-sphinxutils package isn't registered yet on PyPI
+  #
+  # pypi:
+
+  #   name: Upload release to PyPI
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   needs: [lint, test, test-packaging]
+  #   environment:
+  #     name: pypi
+  #     url: https://pypi.org/p/lsst-sphinxutils
+  #   permissions:
+  #     id-token: write
+  #   if: github.event_name == 'release' && github.event.action == 'published'
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0 # full history for versioning
+
+  #     - uses: lsst-sqre/build-and-publish-to-pypi@v2
+  #       with:
+  #         python-version: ${{ env.PYTHON_VERSION }}

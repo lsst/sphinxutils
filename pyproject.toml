@@ -17,7 +17,7 @@ classifiers = [
 ]
 keywords = ["lsst"]
 dependencies = [
-    "documenteer[guide]>=1.0.0",
+    "documenteer[guide]==2.0.0a2",  # pre-release version without pipelines extensions
 ]
 dynamic = ["version"]
 
@@ -25,9 +25,12 @@ dynamic = ["version"]
 "Homepage" = "https://github.com/lsst-dm/sphinxutils"
 
 [project.optional-dependencies]
+# Development dependencies
 dev = [
+    "coverage[toml]",
     "lsst-versions",
-    "mypy"
+    "mypy",
+    "pytest",
 ]
 
 [build-system]
@@ -48,6 +51,28 @@ version = { attr = "lsst_versions.get_lsst_version" }
 
 [tool.lsst_versions]
 write_to = "python/lsst/sphinxutils/version.py"
+
+[tool.coverage.run]
+parallel = true
+branch = true
+source = ["lsst.sphinxutils"]
+
+[tool.coverage.paths]
+source = ["python/lsst", ".tox/*/site-packages"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:"
+]
 
 # Pytest configuration required to prevent pytest from looking for
 # configurations in parent directories. Can be empty.
