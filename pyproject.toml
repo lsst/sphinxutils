@@ -27,6 +27,7 @@ dynamic = ["version"]
 [project.optional-dependencies]
 # Development dependencies
 dev = [
+    "beautifulsoup4",
     "coverage[toml]",
     "lsst-versions",
     "mypy",
@@ -93,6 +94,7 @@ strict_equality = true
 warn_redundant_casts = true
 warn_unreachable = true
 warn_unused_ignores = true
+exclude = "tests/roots"
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
