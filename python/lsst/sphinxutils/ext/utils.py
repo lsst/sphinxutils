@@ -6,7 +6,12 @@ import re
 from dataclasses import dataclass
 from typing import Self
 
-__all__ = ["RoleContent"]
+from docutils import nodes
+
+__all__ = [
+    "RoleContent",
+    "make_section",
+]
 
 ROLE_DISPLAY_PATTERN = re.compile(r"(?P<display>.+)<(?P<reference>.+)>")
 
@@ -71,3 +76,27 @@ class RoleContent:
             ref = role_rawsource.strip()
 
         return cls(last_component=last_component, display=display, ref=ref)
+
+
+def make_section(section_id: str, contents: list[nodes.Node] | None = None) -> nodes.section:
+    """Make a docutils section node.
+
+    Parameters
+    ----------
+    section_id
+        Section identifier, which is appended to both the ``ids`` and ``names``
+        attributes.
+    contents
+        List of docutils nodes that are inserted into the section.
+
+    Returns
+    -------
+    docutils.nodes.section
+        Docutils section node.
+    """
+    section = nodes.section()
+    section["ids"].append(nodes.make_id(section_id))
+    section["names"].append(section_id)
+    if contents is not None:
+        section.extend(contents)
+    return section
