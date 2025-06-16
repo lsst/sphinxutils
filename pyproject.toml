@@ -18,6 +18,7 @@ classifiers = [
 keywords = ["lsst"]
 dependencies = [
     "documenteer[guide]==2.0.0a3",  # pre-release version without pipelines extensions
+    "sphinxcontrib-doxylink"
 ]
 dynamic = ["version"]
 
