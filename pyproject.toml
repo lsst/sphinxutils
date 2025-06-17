@@ -25,6 +25,10 @@ dynamic = ["version"]
 [project.urls]
 "Homepage" = "https://github.com/lsst-dm/sphinxutils"
 
+[project.scripts]
+stack-docs = "lsst.sphinxutils.cli.stackdocs:main"
+package-docs = "documenteer.cli.packagedocs:main"
+
 [project.optional-dependencies]
 # Development dependencies
 dev = [
@@ -33,7 +37,8 @@ dev = [
     "lsst-versions",
     "mypy",
     "pytest",
-    "types-docutils"
+    "types-docutils",
+    "types-PyYAML",
 ]
 
 [build-system]
