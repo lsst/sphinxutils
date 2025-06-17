@@ -22,3 +22,4 @@ pytest_session.txt
 .coverage.*
 
 *.egg-info
+.env
