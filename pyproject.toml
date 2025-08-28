@@ -1,3 +1,160 @@
+[project]
+name = "lsst-sphinxutils"
+requires-python = ">=3.11.0"
+description = "Sphinx documentation tooling for the LSST Science Pipelines."
+license-files = ["COPYRIGHT", "LICENSE", "mit-license.txt", "gpl-v3.0.txt"]
+readme = "README.md"
+authors = [
+    {name="Rubin Observatory Data Management", email="dm-admin@lists.lsst.org"},
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+keywords = ["lsst"]
+dependencies = [
+    "documenteer[guide]==2.0.0a3",  # pre-release version without pipelines extensions
+    "sphinxcontrib-doxylink"
+]
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/lsst-dm/sphinxutils"
+
+[project.scripts]
+stack-docs = "lsst.sphinxutils.cli.stackdocs:main"
+package-docs = "documenteer.cli.packagedocs:main"
+
+[project.optional-dependencies]
+# Development dependencies
+dev = [
+    "beautifulsoup4",
+    "coverage[toml]",
+    "lsst-versions",
+    "mypy",
+    "pytest",
+    "types-docutils",
+    "types-PyYAML",
+]
+
+[build-system]
+requires = ["setuptools", "lsst-versions >= 1.3.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[tool.setuptools]
+zip-safe = true
+
+[tool.setuptools.package-data]
+"lsst.sphinxutils" = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = { attr = "lsst_versions.get_lsst_version" }
+
+[tool.lsst_versions]
+write_to = "python/lsst/sphinxutils/version.py"
+
+[tool.coverage.run]
+parallel = true
+branch = true
+source = ["lsst.sphinxutils"]
+
+[tool.coverage.paths]
+source = ["python/lsst", ".tox/*/site-packages"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:"
+]
+
 # Pytest configuration required to prevent pytest from looking for
 # configurations in parent directories. Can be empty.
 [tool.pytest.ini_options]
+
+[tool.mypy]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+ignore_missing_imports = true
+local_partial_types = true
+no_implicit_reexport = true
+# plugins = [
+#     "pydantic.mypy",
+# ]
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_ignores = true
+exclude = "tests/roots"
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+exclude = [
+    "doc",
+    "python/**/version.py",
+]
+
+[tool.ruff.lint]
+ignore = [
+    "N802",
+    "N803",
+    "N806",
+    "N812",
+    "N815",
+    "N816",
+    "N999",
+    "D107",
+    "D105",
+    "D102",
+    "D104",
+    "D100",
+    "D200",
+    "D205",
+    "D400",
+    "UP007",  # Allow UNION in type annotation
+]
+select = [
+    "E",  # pycodestyle
+    "F",  # pycodestyle
+    "N",  # pep8-naming
+    "W",  # pycodestyle
+    "D",  # pydocstyle
+    "UP",  # pyupgrade
+]
+# Commented out to suppress "unused noqa" in jenkins which has older ruff not
+# generating E721.
+#extend-select = [
+#    "RUF100", # Warn about unused noqa
+#]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lsst.sphinxutils", "tests"]
+split-on-trailing-comma = false
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 79
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
