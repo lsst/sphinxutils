@@ -143,6 +143,8 @@ select = [
     "W",  # pycodestyle
     "D",  # pydocstyle
     "UP",  # pyupgrade
+    "I",  # isort
+    "D",  # docstring conventions
 ]
 # Commented out to suppress "unused noqa" in jenkins which has older ruff not
 # generating E721.

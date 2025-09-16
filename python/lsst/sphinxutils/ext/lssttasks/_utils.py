@@ -101,7 +101,7 @@ def get_type(type_name: str) -> type:
 
 
 def typestring(obj_type: Any) -> str:
-    """Make a string for the object's type
+    """Make a string for the object's type.
 
     Parameters
     ----------

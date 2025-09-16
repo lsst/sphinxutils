@@ -196,7 +196,7 @@ class TaskApiDirective(SphinxDirective):
         return xref_nodes
 
     def _format_config_nodes(self, modulename: str, classname: str) -> nodes.Node:
-        """Create a ``desc`` node summarizing the config attribute
+        """Create a ``desc`` node summarizing the config attribute.
 
         The ``config`` attribute is not statically available from a task class.
         This method manually creates a signature and docstring for the
