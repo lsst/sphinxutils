@@ -4,10 +4,10 @@ from __future__ import annotations
 
 __all__ = [
     "DoxygenConfiguration",
+    "get_cpp_reference_tagfile_path",
+    "get_doxygen_default_conf_path",
     "preprocess_package_doxygen_conf",
     "render_doxygen_mainpage",
-    "get_doxygen_default_conf_path",
-    "get_cpp_reference_tagfile_path",
     "run_doxygen",
 ]
 

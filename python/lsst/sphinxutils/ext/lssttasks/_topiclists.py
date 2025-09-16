@@ -1,13 +1,13 @@
 """Directives that list and create toctrees of task framework topics."""
 
 __all__ = (
-    "TaskListDirective",
     "CmdLineTaskListDirective",
-    "PipelineTaskListDirective",
-    "ConfigurableListDirective",
     "ConfigListDirective",
-    "task_topic_list",
+    "ConfigurableListDirective",
+    "PipelineTaskListDirective",
+    "TaskListDirective",
     "process_task_topic_list",
+    "task_topic_list",
 )
 
 import posixpath

@@ -11,9 +11,9 @@ from ._crossrefs import format_config_id, format_task_id
 from ._utils import extract_docstring_summary, get_docstring, get_type
 
 __all__ = [
+    "ConfigTopicDirective",
     "ConfigurableTopicDirective",
     "TaskTopicDirective",
-    "ConfigTopicDirective",
 ]
 
 

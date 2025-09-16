@@ -1,6 +1,6 @@
 """Create toctrees for modules and packages."""
 
-__all__ = ["setup", "ModuleTocTree", "PackageTocTree"]
+__all__ = ["ModuleTocTree", "PackageTocTree", "setup"]
 
 from collections.abc import Generator
 from typing import Any

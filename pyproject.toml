@@ -146,6 +146,7 @@ select = [
     "I",  # isort
     "D",  # docstring conventions
     "C4",  # comprehensions
+    "RUF022",  # Sort __all__
 ]
 # Commented out to suppress "unused noqa" in jenkins which has older ruff not
 # generating E721.

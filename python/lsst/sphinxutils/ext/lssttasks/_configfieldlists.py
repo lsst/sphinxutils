@@ -4,8 +4,8 @@ config objects.
 
 __all__ = (
     "ConfigFieldListingDirective",
-    "SubtaskListingDirective",
     "StandaloneConfigFieldsDirective",
+    "SubtaskListingDirective",
 )
 
 import functools

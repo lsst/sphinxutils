@@ -11,16 +11,16 @@ from sphinx.util.logging import getLogger
 from ..utils import RoleContent
 
 __all__ = (
-    "format_task_id",
+    "ConfigFieldReferenceRole",
+    "ConfigReferenceRole",
+    "TaskReferenceRole",
     "format_config_id",
     "format_configfield_id",
+    "format_task_id",
     "pending_task_xref",
-    "TaskReferenceRole",
-    "ConfigReferenceRole",
-    "ConfigFieldReferenceRole",
-    "process_pending_task_xref_nodes",
     "process_pending_config_xref_nodes",
     "process_pending_configfield_xref_nodes",
+    "process_pending_task_xref_nodes",
 )
 
 
