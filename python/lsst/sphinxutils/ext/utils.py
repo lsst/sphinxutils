@@ -50,11 +50,11 @@ class RoleContent:
 
         Examples
         --------
-        >>> RoleContent.parse('Tables <lsst.afw.table.Table>')
+        >>> RoleContent.parse("Tables <lsst.afw.table.Table>")
         RoleContent(last_component=False, display=Tables',
         ref='lsst.afw.table.Table')
 
-        >>> RoleContent.parse('~lsst.afw.table.Table')
+        >>> RoleContent.parse("~lsst.afw.table.Table")
         RoleContent(last_component=True, display=None,
         ref='lsst.afw.table.Table')
         """
