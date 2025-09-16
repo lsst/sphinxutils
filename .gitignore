@@ -22,4 +22,5 @@ pytest_session.txt
 .coverage.*
 
 *.egg-info
+*.dist-info
 .env
