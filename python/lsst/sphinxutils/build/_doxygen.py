@@ -253,7 +253,7 @@ class DoxygenConfiguration:
     warn_format: str = field(default="$file:$line: $text", metadata={"doxygen_tag": "WARN_FORMAT"})
     """Format for warning and error messages."""
 
-    warn_logfile: Optional[Path] = field(default=None, metadata={"doxygen_tag": "WARN_LOGFILE"})
+    warn_logfile: Path | None = field(default=None, metadata={"doxygen_tag": "WARN_LOGFILE"})
     """Print errors and warnings to a log file.
 
     If left blank the output is written to standard error (stderr).
@@ -328,7 +328,7 @@ class DoxygenConfiguration:
             line = f"{tag_name} = {value}"
         lines.append(line)
 
-    def _render_path(self, lines: list[str], tag_name: str, value: Optional[Path]) -> None:
+    def _render_path(self, lines: list[str], tag_name: str, value: Path | None) -> None:
         if value:
             line = f"{tag_name} = {value.resolve()}"
             lines.append(line)
