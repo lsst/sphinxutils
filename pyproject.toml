@@ -27,7 +27,7 @@ dynamic = ["version"]
 
 [project.scripts]
 stack-docs = "lsst.sphinxutils.cli.stackdocs:main"
-package-docs = "documenteer.cli.packagedocs:main"
+package-docs = "lsst.sphinxutils.cli.packagedocs:main"
 
 [project.optional-dependencies]
 # Development dependencies
