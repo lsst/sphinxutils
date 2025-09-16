@@ -21,7 +21,7 @@ from collections.abc import Iterable
 from copy import deepcopy
 from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from ._pkgdiscovery import Package
 from ._working_directory import working_directory
@@ -290,7 +290,7 @@ class DoxygenConfiguration:
                 self._render_path_list(lines, tag_name, value)
             elif tag_field.type is list[str]:
                 self._render_str_list(lines, tag_name, value)
-            elif tag_field.type is Path or tag_field.type == Optional[Path]:
+            elif tag_field.type is Path or tag_field.type == Path | None:
                 self._render_path(lines, tag_name, value)
         return "\n".join(lines) + "\n"
 
