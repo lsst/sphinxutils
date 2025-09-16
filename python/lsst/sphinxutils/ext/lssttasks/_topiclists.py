@@ -118,7 +118,7 @@ class TaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Task",))
+        return {"Task"}
 
 
 class CmdLineTaskListDirective(BaseTopicListDirective):
@@ -131,7 +131,7 @@ class CmdLineTaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("CmdLineTask",))
+        return {"CmdLineTask"}
 
 
 class PipelineTaskListDirective(BaseTopicListDirective):
@@ -144,7 +144,7 @@ class PipelineTaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("PipelineTask",))
+        return {"PipelineTask"}
 
 
 class ConfigurableListDirective(BaseTopicListDirective):
@@ -152,7 +152,7 @@ class ConfigurableListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Configurable",))
+        return {"Configurable"}
 
 
 class ConfigListDirective(TaskListDirective):
@@ -160,7 +160,7 @@ class ConfigListDirective(TaskListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Config",))
+        return {"Config"}
 
 
 # Nodes are typically lowercased

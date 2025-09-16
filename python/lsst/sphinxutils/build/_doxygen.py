@@ -298,12 +298,10 @@ class DoxygenConfiguration:
         if self.include_paths:
             # All directory components
             include_dirs = list(
-                set([str(p.parent.resolve()) for p in self.include_paths if (p.is_file() and p.exists())])
+                {str(p.parent.resolve()) for p in self.include_paths if (p.is_file() and p.exists())}
             )
             # All name components
-            include_names = list(
-                set([str(p.name) for p in self.include_paths if (p.is_file() and p.exists())])
-            )
+            include_names = list({str(p.name) for p in self.include_paths if (p.is_file() and p.exists())})
 
             lines.append(f"@INCLUDE_PATH = {' '.join(include_dirs)}")
             lines.append(f"@INCLUDE = {' '.join(include_names)}")
@@ -545,7 +543,7 @@ class EntryParsingError(RuntimeError):
 def preprocess_package_doxygen_conf(*, conf: DoxygenConfiguration, package: Package) -> None:
     """Preprocess a package's Doxygen configuration."""
     dirnames = ["include", "src"]
-    for path in map(lambda p: package.root_dir / p, dirnames):
+    for path in (package.root_dir / p for p in dirnames):
         if path.is_dir():
             conf.inputs.append(path)
             conf.strip_from_path.append(path)

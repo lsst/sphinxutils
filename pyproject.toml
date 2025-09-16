@@ -145,6 +145,7 @@ select = [
     "UP",  # pyupgrade
     "I",  # isort
     "D",  # docstring conventions
+    "C4",  # comprehensions
 ]
 # Commented out to suppress "unused noqa" in jenkins which has older ruff not
 # generating E721.
