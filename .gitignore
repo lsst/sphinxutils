@@ -1,3 +1,5 @@
+coverage.xml
+junit.xml
 .sconsign.dblite
 config.log
 .sconf_temp
