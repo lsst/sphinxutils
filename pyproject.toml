@@ -110,7 +110,7 @@ warn_untyped_fields = true
 
 [tool.ruff]
 line-length = 110
-target-version = "py311"
+target-version = "py312"
 exclude = [
     "doc",
     "python/**/version.py",
