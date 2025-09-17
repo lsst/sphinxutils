@@ -48,7 +48,9 @@ class TaskApiDirective(SphinxDirective):
         try:
             task_class_name = self.arguments[0]
         except IndexError:
-            raise SphinxError(f"{self.directive_name} directive requires a Task class name as an argument")
+            raise SphinxError(
+                f"{self.directive_name} directive requires a Task class name as an argument"
+            ) from None
 
         logger.debug("%s running with %r", self.directive_name, task_class_name)
 
