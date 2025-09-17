@@ -2,6 +2,8 @@
 config objects.
 """
 
+from __future__ import annotations
+
 __all__ = (
     "ConfigFieldListingDirective",
     "StandaloneConfigFieldsDirective",
