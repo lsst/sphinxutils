@@ -83,7 +83,7 @@ jobs:
           fetch-depth: 0 # full history for versioning
 
       - name: Build and publish
-        uses: lsst-sqre/build-and-publish-to-pypi@v2
+        uses: lsst-sqre/build-and-publish-to-pypi@v3
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           upload: false
@@ -108,6 +108,6 @@ jobs:
   #       with:
   #         fetch-depth: 0 # full history for versioning
 
-  #     - uses: lsst-sqre/build-and-publish-to-pypi@v2
+  #     - uses: lsst-sqre/build-and-publish-to-pypi@v3
   #       with:
   #         python-version: ${{ env.PYTHON_VERSION }}
