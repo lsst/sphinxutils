@@ -74,4 +74,4 @@ class TestFilterIndexPages(TestCase):
             "basedir/A/index",
             "basedir/B/index",
         ]
-        assert set(expected) == set(list(_filter_index_pages(docnames, "basedir")))
+        assert set(expected) == set(_filter_index_pages(docnames, "basedir"))

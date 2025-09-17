@@ -1,3 +1,5 @@
+coverage.xml
+junit.xml
 .sconsign.dblite
 config.log
 .sconf_temp
@@ -22,4 +24,5 @@ pytest_session.txt
 .coverage.*
 
 *.egg-info
+*.dist-info
 .env

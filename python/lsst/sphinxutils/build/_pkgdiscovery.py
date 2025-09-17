@@ -3,12 +3,12 @@ and their documentation.
 """
 
 __all__ = (
+    "NoPackageDocsError",
+    "Package",
     "discover_setup_packages",
+    "find_package_docs",
     "find_table_file",
     "list_packages_in_eups_table",
-    "Package",
-    "NoPackageDocsError",
-    "find_package_docs",
 )
 
 import logging

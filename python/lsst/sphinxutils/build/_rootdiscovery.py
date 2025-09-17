@@ -1,6 +1,6 @@
 """Utilities for detecting the root directory of Sphinx documentation."""
 
-__all__ = ("discover_package_doc_dir", "discover_conf_py_directory")
+__all__ = ("discover_conf_py_directory", "discover_package_doc_dir")
 
 import pathlib
 

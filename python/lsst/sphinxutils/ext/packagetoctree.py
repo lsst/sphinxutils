@@ -1,6 +1,6 @@
 """Create toctrees for modules and packages."""
 
-__all__ = ["setup", "ModuleTocTree", "PackageTocTree"]
+__all__ = ["ModuleTocTree", "PackageTocTree", "setup"]
 
 from collections.abc import Generator
 from typing import Any
@@ -191,7 +191,7 @@ class PackageTocTree(Directive):
 
 def _filter_index_pages(docnames: list[str], base_dir: str) -> Generator[str, None, None]:
     """Filter docnames to only yield paths of the form
-    ``<base_dir>/<name>/index``
+    ``<base_dir>/<name>/index``.
 
     Parameters
     ----------

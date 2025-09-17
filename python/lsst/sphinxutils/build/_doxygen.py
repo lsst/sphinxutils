@@ -4,10 +4,10 @@ from __future__ import annotations
 
 __all__ = [
     "DoxygenConfiguration",
+    "get_cpp_reference_tagfile_path",
+    "get_doxygen_default_conf_path",
     "preprocess_package_doxygen_conf",
     "render_doxygen_mainpage",
-    "get_doxygen_default_conf_path",
-    "get_cpp_reference_tagfile_path",
     "run_doxygen",
 ]
 
@@ -21,7 +21,7 @@ from collections.abc import Iterable
 from copy import deepcopy
 from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from ._pkgdiscovery import Package
 from ._working_directory import working_directory
@@ -253,7 +253,7 @@ class DoxygenConfiguration:
     warn_format: str = field(default="$file:$line: $text", metadata={"doxygen_tag": "WARN_FORMAT"})
     """Format for warning and error messages."""
 
-    warn_logfile: Optional[Path] = field(default=None, metadata={"doxygen_tag": "WARN_LOGFILE"})
+    warn_logfile: Path | None = field(default=None, metadata={"doxygen_tag": "WARN_LOGFILE"})
     """Print errors and warnings to a log file.
 
     If left blank the output is written to standard error (stderr).
@@ -290,7 +290,7 @@ class DoxygenConfiguration:
                 self._render_path_list(lines, tag_name, value)
             elif tag_field.type is list[str]:
                 self._render_str_list(lines, tag_name, value)
-            elif tag_field.type is Path or tag_field.type == Optional[Path]:
+            elif tag_field.type is Path or tag_field.type == Path | None:
                 self._render_path(lines, tag_name, value)
         return "\n".join(lines) + "\n"
 
@@ -298,12 +298,10 @@ class DoxygenConfiguration:
         if self.include_paths:
             # All directory components
             include_dirs = list(
-                set([str(p.parent.resolve()) for p in self.include_paths if (p.is_file() and p.exists())])
+                {str(p.parent.resolve()) for p in self.include_paths if (p.is_file() and p.exists())}
             )
             # All name components
-            include_names = list(
-                set([str(p.name) for p in self.include_paths if (p.is_file() and p.exists())])
-            )
+            include_names = list({str(p.name) for p in self.include_paths if (p.is_file() and p.exists())})
 
             lines.append(f"@INCLUDE_PATH = {' '.join(include_dirs)}")
             lines.append(f"@INCLUDE = {' '.join(include_names)}")
@@ -328,7 +326,7 @@ class DoxygenConfiguration:
             line = f"{tag_name} = {value}"
         lines.append(line)
 
-    def _render_path(self, lines: list[str], tag_name: str, value: Optional[Path]) -> None:
+    def _render_path(self, lines: list[str], tag_name: str, value: Path | None) -> None:
         if value:
             line = f"{tag_name} = {value.resolve()}"
             lines.append(line)
@@ -545,7 +543,7 @@ class EntryParsingError(RuntimeError):
 def preprocess_package_doxygen_conf(*, conf: DoxygenConfiguration, package: Package) -> None:
     """Preprocess a package's Doxygen configuration."""
     dirnames = ["include", "src"]
-    for path in map(lambda p: package.root_dir / p, dirnames):
+    for path in (package.root_dir / p for p in dirnames):
         if path.is_dir():
             conf.inputs.append(path)
             conf.strip_from_path.append(path)

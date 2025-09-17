@@ -2,10 +2,12 @@
 config objects.
 """
 
+from __future__ import annotations
+
 __all__ = (
     "ConfigFieldListingDirective",
-    "SubtaskListingDirective",
     "StandaloneConfigFieldsDirective",
+    "SubtaskListingDirective",
 )
 
 import functools
@@ -73,7 +75,9 @@ class ConfigFieldListingDirective(SphinxDirective):
         try:
             task_class_name = self.arguments[0]
         except IndexError:
-            raise SphinxError(f"{self.directive_name} directive requires a Task class name as an argument")
+            raise SphinxError(
+                f"{self.directive_name} directive requires a Task class name as an argument"
+            ) from None
         logger.debug("%s using Task class %s", task_class_name)
 
         task_config_class = get_task_config_class(task_class_name)
@@ -145,7 +149,9 @@ class SubtaskListingDirective(SphinxDirective):
         try:
             task_class_name = self.arguments[0]
         except IndexError:
-            raise SphinxError(f"{self.directive_name} directive requires a Task class name as an argument")
+            raise SphinxError(
+                f"{self.directive_name} directive requires a Task class name as an argument"
+            ) from None
         logger.debug("%s using Task class %s", self.directive_name, task_class_name)
 
         task_config_class = get_task_config_class(task_class_name)
@@ -199,7 +205,9 @@ class StandaloneConfigFieldsDirective(SphinxDirective):
         try:
             config_class_name = self.arguments[0]
         except IndexError:
-            raise SphinxError(f"{self.directive_name} directive requires a Config class name as an argument")
+            raise SphinxError(
+                f"{self.directive_name} directive requires a Config class name as an argument"
+            ) from None
         logger.debug("%s using Config class %s", self.directive_name, config_class_name)
 
         config_class = get_type(config_class_name)
@@ -266,7 +274,7 @@ def get_field_formatter(field: Field) -> Callable:
     try:
         return FIELD_FORMATTERS[typestring(type(field))]
     except KeyError:
-        raise ValueError(f"Unknown field type {type(field)!r}")
+        raise ValueError(f"Unknown field type {type(field)!r}") from None
 
 
 def register_formatter(field_typestr: str) -> Callable:

@@ -11,9 +11,9 @@ from ._crossrefs import format_config_id, format_task_id
 from ._utils import extract_docstring_summary, get_docstring, get_type
 
 __all__ = [
+    "ConfigTopicDirective",
     "ConfigurableTopicDirective",
     "TaskTopicDirective",
-    "ConfigTopicDirective",
 ]
 
 
@@ -48,7 +48,9 @@ class BaseTopicDirective(SphinxDirective):
         try:
             class_name = self.arguments[0]
         except IndexError:
-            raise SphinxError(f"{self.directive_name} directive requires a class name as an argument")
+            raise SphinxError(
+                f"{self.directive_name} directive requires a class name as an argument"
+            ) from None
         self._logger.debug("%s using class %s", self.directive_name, class_name)
 
         summary_node = self._create_summary_node(class_name)

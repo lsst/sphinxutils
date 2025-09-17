@@ -4,7 +4,7 @@ a namespace.
 
 from __future__ import annotations
 
-__all__ = ["setup", "AutoCppApi", "filter_symbolmap"]
+__all__ = ["AutoCppApi", "filter_symbolmap", "setup"]
 
 import re
 from pathlib import Path

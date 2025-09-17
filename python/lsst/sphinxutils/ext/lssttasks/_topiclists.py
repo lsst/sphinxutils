@@ -1,13 +1,13 @@
 """Directives that list and create toctrees of task framework topics."""
 
 __all__ = (
-    "TaskListDirective",
     "CmdLineTaskListDirective",
-    "PipelineTaskListDirective",
-    "ConfigurableListDirective",
     "ConfigListDirective",
-    "task_topic_list",
+    "ConfigurableListDirective",
+    "PipelineTaskListDirective",
+    "TaskListDirective",
     "process_task_topic_list",
+    "task_topic_list",
 )
 
 import posixpath
@@ -94,7 +94,10 @@ class BaseTopicListDirective(SphinxDirective):
         # is set by `process_task_topic_list`.
         # NOTE: docnames are **always** POSIX-like paths
         class_names = [docname.split("/")[-1].split(".")[-1] for docname in docnames]
-        docnames = [docname for docname, _ in sorted(zip(docnames, class_names), key=lambda pair: pair[1])]
+        docnames = [
+            docname
+            for docname, _ in sorted(zip(docnames, class_names, strict=True), key=lambda pair: pair[1])
+        ]
 
         tocnode = sphinx.addnodes.toctree()
         tocnode["includefiles"] = docnames
@@ -118,7 +121,7 @@ class TaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Task",))
+        return {"Task"}
 
 
 class CmdLineTaskListDirective(BaseTopicListDirective):
@@ -131,7 +134,7 @@ class CmdLineTaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("CmdLineTask",))
+        return {"CmdLineTask"}
 
 
 class PipelineTaskListDirective(BaseTopicListDirective):
@@ -144,7 +147,7 @@ class PipelineTaskListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("PipelineTask",))
+        return {"PipelineTask"}
 
 
 class ConfigurableListDirective(BaseTopicListDirective):
@@ -152,7 +155,7 @@ class ConfigurableListDirective(BaseTopicListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Configurable",))
+        return {"Configurable"}
 
 
 class ConfigListDirective(TaskListDirective):
@@ -160,7 +163,7 @@ class ConfigListDirective(TaskListDirective):
 
     @property
     def types(self) -> set[str]:
-        return set(("Config",))
+        return {"Config"}
 
 
 # Nodes are typically lowercased
@@ -207,7 +210,9 @@ def process_task_topic_list(app: Sphinx, doctree: nodes.Node, fromdocname: str) 
             if topic["fully_qualified_name"].startswith(root)
         ]
         topic_names = [topics[k]["fully_qualified_name"].split(".")[-1] for k in topic_keys]
-        topic_keys = [k for k, _ in sorted(zip(topic_keys, topic_names), key=lambda pair: pair[1])]
+        topic_keys = [
+            k for k, _ in sorted(zip(topic_keys, topic_names, strict=True), key=lambda pair: pair[1])
+        ]
 
         if len(topic_keys) == 0:
             # Fallback if no topics are found

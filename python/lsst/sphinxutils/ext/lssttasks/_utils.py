@@ -18,14 +18,14 @@ if TYPE_CHECKING:
     from lsst.pex.config import ConfigurableField, Field, RegistryField
 
 __all__ = [
-    "get_docstring",
     "extract_docstring_summary",
+    "get_docstring",
+    "get_subtask_fields",
+    "get_subtask_fields",
+    "get_task_config_fields",
+    "get_task_config_fields",
     "get_type",
-    "get_task_config_fields",
-    "get_subtask_fields",
     "typestring",
-    "get_task_config_fields",
-    "get_subtask_fields",
 ]
 
 
@@ -101,7 +101,7 @@ def get_type(type_name: str) -> type:
 
 
 def typestring(obj_type: Any) -> str:
-    """Make a string for the object's type
+    """Make a string for the object's type.
 
     Parameters
     ----------
