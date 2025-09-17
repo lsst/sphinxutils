@@ -94,7 +94,10 @@ class BaseTopicListDirective(SphinxDirective):
         # is set by `process_task_topic_list`.
         # NOTE: docnames are **always** POSIX-like paths
         class_names = [docname.split("/")[-1].split(".")[-1] for docname in docnames]
-        docnames = [docname for docname, _ in sorted(zip(docnames, class_names), key=lambda pair: pair[1])]
+        docnames = [
+            docname
+            for docname, _ in sorted(zip(docnames, class_names, strict=True), key=lambda pair: pair[1])
+        ]
 
         tocnode = sphinx.addnodes.toctree()
         tocnode["includefiles"] = docnames
@@ -207,7 +210,9 @@ def process_task_topic_list(app: Sphinx, doctree: nodes.Node, fromdocname: str) 
             if topic["fully_qualified_name"].startswith(root)
         ]
         topic_names = [topics[k]["fully_qualified_name"].split(".")[-1] for k in topic_keys]
-        topic_keys = [k for k, _ in sorted(zip(topic_keys, topic_names), key=lambda pair: pair[1])]
+        topic_keys = [
+            k for k, _ in sorted(zip(topic_keys, topic_names, strict=True), key=lambda pair: pair[1])
+        ]
 
         if len(topic_keys) == 0:
             # Fallback if no topics are found
