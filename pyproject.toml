@@ -145,6 +145,7 @@ select = [
     "I",  # isort
     "D",  # docstring conventions
     "C4",  # comprehensions
+    "B",  # bugbear
     "RUF022",  # Sort __all__
 ]
 # Commented out to suppress "unused noqa" in jenkins which has older ruff not
