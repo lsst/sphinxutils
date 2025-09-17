@@ -134,6 +134,8 @@ ignore = [
     "D205",
     "D400",
     "UP007",  # Allow UNION in type annotation
+    "B009",  # We use some attributes that are not known to mypy
+    "B010",  # We use some attributes that are not known to mypy
 ]
 select = [
     "E",  # pycodestyle
