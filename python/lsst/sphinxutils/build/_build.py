@@ -155,7 +155,7 @@ def build_stack_docs(
             os.makedirs(root_static_dir)
 
         # Link to documentation directories of packages from the root project
-        for package_name, package in packages.items():
+        for package in packages.values():
             link_directories(root_modules_dir, package.module_dirs)
             link_directories(root_packages_dir, package.package_dirs)
             link_directories(root_static_dir, package.static_doc_dirs)
