@@ -25,7 +25,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -46,7 +46,7 @@ jobs:
           - "3.13"
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # full history for versioning
 
@@ -78,7 +78,7 @@ jobs:
     needs: [lint, test]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # full history for versioning
 
@@ -104,7 +104,7 @@ jobs:
   #   if: github.event_name == 'release' && github.event.action == 'published'
 
   #   steps:
-  #     - uses: actions/checkout@v5
+  #     - uses: actions/checkout@v6
   #       with:
   #         fetch-depth: 0 # full history for versioning
 
