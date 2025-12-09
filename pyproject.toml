@@ -53,6 +53,7 @@ zip-safe = true
 
 [tool.setuptools.package-data]
 "lsst.sphinxutils" = ["py.typed"]
+"lsst.sphinxutils.build" = ["data/mainpage.dox"]
 
 [tool.setuptools.dynamic]
 version = { attr = "lsst_versions.get_lsst_version" }
