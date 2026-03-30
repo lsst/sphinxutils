@@ -58,7 +58,7 @@ jobs:
           tox-plugins: "tox-uv"
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           files: ./coverage.xml
           flags: unittests
